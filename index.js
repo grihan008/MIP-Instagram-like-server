@@ -16,10 +16,37 @@ app.get('/', function(req, res) {
 });
 
 var users = [{
-        id: "txgw35",
-        username: "user",
-        password: "pass"
-    }
+            id: "fx34d",
+            username: "user",
+            password: "pass".
+            fullName: "Donald Trump",
+            profileImageSmall: "http://core0.staticworld.net/images/article/2015/11/111915blog-donald-trump-100629006-primary.idge.jpg",
+            postCount: 13,
+            followers: 52,
+            following: 2,
+            activity: [
+                {
+                    userId: 2,
+                    username: "POTUS",
+                    fullName: "President of United States",
+                    profileImageSmall: "https://pbs.twimg.com/profile_images/738744285101580288/OUoCVEXG.jpg",
+                    type: "commented",
+                    comment: "You're never going to make it don #losing",
+                    userRefs: [],
+                    tags: ["losing"]
+                },
+                {
+                    userId: 3,
+                    username: "HillaryC",
+                    fullName: "Hillary Clinton",
+                    profileImageSmall: "https://pbs.twimg.com/profile_images/750300510264107008/G8-PA5KA.jpg",
+                    type: "liked",
+                    comment: "",
+                    userRefs: [],
+                    tags: []
+                }
+            ]
+        }
     ];
 
 var posts = [
