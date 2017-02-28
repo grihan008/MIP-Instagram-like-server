@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 var users = [{
             id: "fx34d",
             username: "user",
-            password: "pass".
+            password: "pass",
             fullName: "Donald Trump",
             profileImageSmall: "http://core0.staticworld.net/images/article/2015/11/111915blog-donald-trump-100629006-primary.idge.jpg",
             postCount: 13,
