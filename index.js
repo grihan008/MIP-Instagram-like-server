@@ -105,6 +105,17 @@ app.post('/login', function(req,res){
     }
 });
 
+app.post('/addUser', function(req,res){
+    var length = users.push({
+        id:"sda",
+        username: req.body.username,
+        password: req.body.password,
+        fullName: "Dude",
+        profileImageSmall: "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png"
+    });
+    return res.json(users[length-1]);
+}
+
 app.get('/posts/relevant', function(req, res) {
     res.json(posts);
 });
