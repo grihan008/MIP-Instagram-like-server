@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 // You can store key-value pairs in express, here we store the port setting
-app.set('port', (process.env.PORT || 80));
+app.set('port', (process.env.PORT || 3000));
 
 // bodyParser needs to be configured for parsing JSON from HTTP body
 app.use(bodyParser.json());
@@ -16,7 +16,7 @@ app.get('/', function(req, res) {
 });
 
 var users = [{
-            id: "fx34d",
+            id: 1,
             username: "user",
             password: "pass",
             fullName: "Donald Trump",
@@ -45,6 +45,17 @@ var users = [{
                     userRefs: [],
                     tags: []
                 }
+            ]
+        },{
+            id: 2,
+            username: "dude",
+            password: "1234",
+            fullName: "Grihan",
+            profileImageSmall: "https://agario-skins.org/images/skins/custom/jake.png?v0.10.16",
+            postCount: 2,
+            followers: 3,
+            following: 5,
+            activity: [
             ]
         }
     ];
@@ -85,6 +96,56 @@ var posts = [
                 },
             ]
 
+        },{
+            id: 1,
+            user: {
+                id: 1,
+                username: "dtrump",
+                profileImageSmall: "http://core0.staticworld.net/images/article/2015/11/111915blog-donald-trump-100629006-primary.idge.jpg" 
+            },                                                 
+            image: "http://media1.fdncms.com/sacurrent/imager/u/original/2513252/donald_trump4.jpg",
+            imageThumbnail: "http://media1.fdncms.com/sacurrent/imager/u/original/2513252/donald_trump4.jpg",
+            likes: 892, 
+            caption: "Always winning #elections",
+            tags: ['elections'],         
+            comments: [
+                {
+                    id: 0,
+                    user: {
+                        id: 2,
+                        username: "POTUS"
+                    },                    
+                    comment: "You're never going to make it don #losing",
+                    userRefs: [],
+                    tags: ["losing"]
+                },
+                {
+                    id: 1,
+                    user: {
+                        id: 3,
+                        username: "HillaryC"
+                    },                    
+                    comment: "Damn right @POTUS",
+                    userRefs: ["POTUS"],
+                    tags: []       
+                },
+            ]
+
+        },{
+            id: 2,
+            user: {
+                id: 2,
+                username: "dude",
+                profileImageSmall: "https://agario-skins.org/images/skins/custom/jake.png?v0.10.16" 
+            },                                                 
+            image: "https://agario-skins.org/images/skins/custom/jake.png?v0.10.16",
+            imageThumbnail: "https://agario-skins.org/images/skins/custom/jake.png?v0.10.16",
+            likes: 3, 
+            caption: "Yooooo",
+            tags: ['elections'],         
+            comments: [
+            ]
+
         }
     ]
 
@@ -107,7 +168,7 @@ app.post('/login', function(req,res){
 
 app.post('/addUser', function(req,res){
     var length = users.push({
-        id:"sda",
+        id: 4,
         username: req.body.username,
         password: req.body.password,
         fullName: "Dude",
@@ -121,12 +182,22 @@ app.post('/addUser', function(req,res){
     }
 });
 
+app.get('/users', function(req,res){
+    res.json(users);
+});
+
 app.get('/posts/relevant', function(req, res) {
     res.json(posts);
 });
 
-app.get('/posts/:id', function(req, res) {    
-    res.json(posts[req.params.id]);
+app.get('/posts/:id', function(req, res) {
+    var items=[];
+    posts.forEach(function(item,i){
+        if (item.user.id==req.params.id){
+            items.push(item);
+        }
+    });
+    res.json(items);
 });
 
 // start listening for incoming HTTP connections
