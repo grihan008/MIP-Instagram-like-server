@@ -15,6 +15,13 @@ app.get('/', function(req, res) {
     res.send("Hello world");
 });
 
+var users = [{
+        id: "txgw35",
+        username: "user",
+        password: "pass"
+    }
+    ];
+
 var posts = [
         {
             id: 0,
@@ -53,6 +60,23 @@ var posts = [
 
         }
     ]
+
+app.post('/login', function(req,res){
+    console.log("test");
+    console.log(req.body);
+    var u = users.find(function(element){
+         return (element.username === req.body.username) && (element.password === req.body.password);        
+    });
+
+    if(u !== undefined)
+    {
+        return res.json({id: u.id, username: u.username});
+    }
+    else
+    {
+        return res.sendStatus(401);
+    }
+});
 
 app.get('/posts/relevant', function(req, res) {
     res.json(posts);
