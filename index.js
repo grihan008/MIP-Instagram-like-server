@@ -113,8 +113,13 @@ app.post('/addUser', function(req,res){
         fullName: "Dude",
         profileImageSmall: "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png"
     });
-    return res.json(users[length-1]);
-}
+    if (users[length-1].username==req.body.username){
+        return res.json(res.json(users[length-1]));
+    }
+    else{
+        return res.sendStatus(401);
+    }
+});
 
 app.get('/posts/relevant', function(req, res) {
     res.json(posts);
