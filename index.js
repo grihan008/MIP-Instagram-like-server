@@ -2,7 +2,14 @@ var express = require('express');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var app = express();
+var cloudinary = require('cloudinary');
 
+
+cloudinary.config({ 
+        cloud_name: 'disvux5pl', 
+        api_key: '229163247356667', 
+        api_secret: 'D1ahx96rsqHAwLFZIhYy6cuIVwM' 
+    });
 // You can store key-value pairs in express, here we store the port setting
 app.set('port', (process.env.PORT || 3000));
 
@@ -24,6 +31,7 @@ var users = [{
             postCount: 13,
             followers: 52,
             following: 2,
+            follow: [],
             activity: [
                 {
                     userId: 2,
@@ -55,6 +63,7 @@ var users = [{
             postCount: 2,
             followers: 3,
             following: 5,
+            follow: [1],
             activity: [
             ]
         }
@@ -172,6 +181,7 @@ app.post('/addUser', function(req,res){
         username: req.body.username,
         password: req.body.password,
         fullName: "Dude",
+        follow: [],
         profileImageSmall: "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png"
     });
     if (users[length-1].username==req.body.username){
@@ -182,12 +192,45 @@ app.post('/addUser', function(req,res){
     }
 });
 
+app.post('/addFollow', function(req,res){
+    var user;
+    users.forEach(function(item){
+        if (item.id==req.body.id){
+            item.follow.push(req.body.followid);
+            res.sendStatus(200);
+            return;
+        }
+    });
+});
+
+app.post('upload', function(req,res){
+    cloudinary.uploader.upload(req.file, function(result) { 
+      res.json(result);
+    });
+});
+
 app.get('/users', function(req,res){
     res.json(users);
 });
 
-app.get('/posts/relevant', function(req, res) {
-    res.json(posts);
+app.get('/posts/relevant/:id', function(req, res) {
+    var show=[];
+    var user;
+    users.forEach(function(item){
+        if (item.id==req.params.id){
+            user=item;
+        };
+    });
+    if (user.follow){
+        user.follow.forEach(function(item){
+            posts.forEach(function(post){
+                if (post.user.id==item){
+                    show.push(post);
+                }
+            })
+        });
+    }
+    res.json(show);
 });
 
 app.get('/posts/:id', function(req, res) {
@@ -198,6 +241,16 @@ app.get('/posts/:id', function(req, res) {
         }
     });
     res.json(items);
+});
+
+app.get('/post/:id', function(req, res) {
+    var send;
+    posts.forEach(function(item,i){
+        if (item.id==req.params.id){
+            send=item;
+        }
+    });
+    res.json(send);
 });
 
 // start listening for incoming HTTP connections
