@@ -210,7 +210,7 @@ app.post('upload', function(req,res){
 });
 
 app.get('/users', function(req,res){
-    return res.json(users);
+    res.json(users);
 });
 
 app.get('/posts/relevant/:id', function(req, res) {
