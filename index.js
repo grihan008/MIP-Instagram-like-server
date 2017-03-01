@@ -4,18 +4,18 @@ var bodyParser = require('body-parser');
 var app = express();
 var cloudinary = require('cloudinary');
 
-
-cloudinary.config({ 
-        cloud_name: 'disvux5pl', 
-        api_key: '229163247356667', 
-        api_secret: 'D1ahx96rsqHAwLFZIhYy6cuIVwM' 
-    });
 // You can store key-value pairs in express, here we store the port setting
 app.set('port', (process.env.PORT || 3000));
 
 // bodyParser needs to be configured for parsing JSON from HTTP body
 app.use(bodyParser.json());
 app.use(cors());
+
+cloudinary.config({ 
+        cloud_name: 'disvux5pl', 
+        api_key: '229163247356667', 
+        api_secret: 'D1ahx96rsqHAwLFZIhYy6cuIVwM' 
+    });
 
 // Simple hello world route
 app.get('/', function(req, res) {
