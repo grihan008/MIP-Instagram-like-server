@@ -3,19 +3,28 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var app = express();
 var cloudinary = require('cloudinary');
+var cloudinaryStorage = require('multer-storage-cloudinary');
 
 
-cloudinary.config({ 
-        cloud_name: 'hgeqzeyd7', 
-        api_key: '194272657656171', 
-        api_secret: 'pI-CdWJ8gKfaKseHOoYpEAI8hBU' 
-    });
+// cloudinary.config({ 
+//         cloud_name: 'hgeqzeyd7', 
+//         api_key: '194272657656171', 
+//         api_secret: 'pI-CdWJ8gKfaKseHOoYpEAI8hBU' 
+//     });
 // You can store key-value pairs in express, here we store the port setting
 app.set('port', (process.env.PORT || 3000));
 
 // bodyParser needs to be configured for parsing JSON from HTTP body
 app.use(bodyParser.json());
 app.use(cors());
+
+var storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: '', // cloudinary folder where you want to store images, empty is root
+  allowedFormats: ['jpg', 'png'],
+});
+
+var parser = multer({ storage: storage });
 
 // Simple hello world route
 app.get('/', function(req, res) {
@@ -203,10 +212,14 @@ app.post('/addFollow', function(req,res){
     });
 });
 
-app.post('/upload', function(req,res){
-    cloudinary.uploader.upload(req.file, function(result) { 
-      res.json(result);
-    });
+// app.post('/upload', function(req,res){
+//     cloudinary.uploader.upload(req.file, function(result) { 
+//       res.json(result);
+//     });
+// });
+app.post('/upload', parser.single('image'), function (req, res) {       
+    console.log(req.file);
+    res.json(req.file); // respond with json output of the cloudinary data
 });
 
 app.get('/users', function(req,res){
