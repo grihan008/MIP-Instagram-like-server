@@ -238,7 +238,8 @@ app.post('/addPost', function(req,res){
             ]
 
     });
-})
+    res.sendStatus(200);
+});
 
 // app.post('/upload', function(req,res){
 //     cloudinary.uploader.upload(req.file, function(result) { 
