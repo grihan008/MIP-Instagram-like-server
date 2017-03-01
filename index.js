@@ -6,9 +6,9 @@ var cloudinary = require('cloudinary');
 
 
 cloudinary.config({ 
-        cloud_name: 'disvux5pl', 
-        api_key: '229163247356667', 
-        api_secret: 'D1ahx96rsqHAwLFZIhYy6cuIVwM' 
+        cloud_name: 'hgeqzeyd7', 
+        api_key: '194272657656171', 
+        api_secret: 'pI-CdWJ8gKfaKseHOoYpEAI8hBU' 
     });
 // You can store key-value pairs in express, here we store the port setting
 app.set('port', (process.env.PORT || 3000));
