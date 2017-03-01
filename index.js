@@ -213,6 +213,33 @@ app.post('/addFollow', function(req,res){
     });
 });
 
+app.post('/addPost', function(req,res){
+    var img;
+    var name;
+    users.forEach(function(item){
+        if(item.id==req.body.id){
+            name=item.username;
+            img=item.profileImageSmall;
+        }
+    });
+    posts.push({
+        id: posts.length,
+        user:{
+            id: req.body.id,
+            username: name,
+            profileImageSmall: img
+        },
+        image: "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+        imageThumbnail: "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+            likes: 3, 
+            caption: req.body.caption,
+            tags: ['newpost'],         
+            comments: [
+            ]
+
+    });
+})
+
 // app.post('/upload', function(req,res){
 //     cloudinary.uploader.upload(req.file, function(result) { 
 //       res.json(result);
