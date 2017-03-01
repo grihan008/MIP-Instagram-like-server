@@ -17,6 +17,13 @@ app.set('port', (process.env.PORT || 3000));
 app.use(bodyParser.json());
 app.use(cors());
 
+app.all('*', function(req, res, next) {
+       res.header("Access-Control-Allow-Origin", "*");
+       res.header("Access-Control-Allow-Headers", "X-Requested-With");
+       res.header('Access-Control-Allow-Headers', 'Content-Type');
+       next();
+});
+
 // Simple hello world route
 app.get('/', function(req, res) {
     res.send("Hello world");
