@@ -203,15 +203,15 @@ app.post('/addFollow', function(req,res){
     });
 });
 
-app.post('upload', function(req,res){
+app.post('/upload', function(req,res){
     cloudinary.uploader.upload(req.file, function(result) { 
       res.json(result);
     });
 });
 
-// app.get('/users', function(req,res){
-//     return res.json(users);
-// });
+app.get('/users', function(req,res){
+    res.json(users);
+});
 
 app.get('/posts/relevant/:id', function(req, res) {
     var show=[];
