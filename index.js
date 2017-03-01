@@ -16,7 +16,7 @@ app.set('port', (process.env.PORT || 3000));
 // bodyParser needs to be configured for parsing JSON from HTTP body
 app.use(bodyParser.json());
 app.use(cors());
-
+app.options('*', cors());
 // Simple hello world route
 app.get('/', function(req, res) {
     res.send("Hello world");
