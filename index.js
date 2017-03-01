@@ -158,7 +158,7 @@ var posts = [
         }
     ]
 
-app.post('/login', function(req,res){
+app.post('/login',cors(), function(req,res){
     console.log("test");
     console.log(req.body);
     var u = users.find(function(element){
