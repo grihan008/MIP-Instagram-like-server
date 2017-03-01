@@ -187,7 +187,7 @@ app.post('/login', function(req,res){
 
 app.post('/addUser', function(req,res){
     var length = users.push({
-        id: 4,
+        id: users.length+1,
         username: req.body.username,
         password: req.body.password,
         fullName: "Dude",
