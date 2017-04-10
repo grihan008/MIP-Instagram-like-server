@@ -213,7 +213,7 @@ app.post('/addFollow', function(req,res){
     });
 });
 
-app.post('/addPost', function(req,res){
+app.post('/addPost', parser.single('image'), function(req,res){
     var img;
     var name;
     users.forEach(function(item){
@@ -229,8 +229,8 @@ app.post('/addPost', function(req,res){
             username: name,
             profileImageSmall: img
         },
-        image: "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
-        imageThumbnail: "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+        image: req.file.url,
+        imageThumbnail: req.file.url,
             likes: 3, 
             caption: req.body.caption,
             tags: ['newpost'],         
