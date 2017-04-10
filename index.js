@@ -1,4 +1,4 @@
-var express = require('express');
+        var express = require('express');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var multer  = require('multer');
@@ -246,6 +246,14 @@ app.post('/addPost', function(req,res){
 //       res.json(result);
 //     });
 // });
+app.get('/upload', function(req, res) {
+  res.send('<form method="post" enctype="multipart/form-data">'
+    + '<p>Public ID: <input type="text" name="title"/></p>'
+    + '<p>Image: <input type="file" name="image"/></p>'
+    + '<p><input type="submit" value="Upload"/></p>'
+    + '</form>');
+});
+
 app.post('/upload', parser.single('image'), function (req, res) {       
     console.log(req.file);
     res.json(req.file); // respond with json output of the cloudinary data
