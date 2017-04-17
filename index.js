@@ -213,7 +213,7 @@ app.post('/addFollow', function(req,res){
     });
 });
 
-app.post('/addPost', parser.single('image'), function(req,res){
+app.post('/addPost', function(req,res){
     var img;
     var name;
     users.forEach(function(item){
@@ -229,8 +229,8 @@ app.post('/addPost', parser.single('image'), function(req,res){
             username: name,
             profileImageSmall: img
         },
-        image: req.file.url,
-        imageThumbnail: req.file.url,
+        image: imageUri,
+        imageThumbnail: imageUri,
             likes: 3, 
             caption: req.body.caption,
             tags: ['newpost'],         
