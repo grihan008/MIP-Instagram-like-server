@@ -229,8 +229,8 @@ app.post('/addPost', function(req,res){
             username: name,
             profileImageSmall: img
         },
-        image: imageUri,
-        imageThumbnail: imageUri,
+        image: req.body.imageUri,
+        imageThumbnail: req.body.imageUri,
             likes: 3, 
             caption: req.body.caption,
             tags: ['newpost'],         
